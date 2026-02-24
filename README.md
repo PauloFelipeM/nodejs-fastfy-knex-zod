@@ -1,6 +1,6 @@
-# Transactions API
+# REST API with Node.js
 
-A REST API for managing financial transactions, built with Fastify, Knex.js, SQLite, and Zod.
+A REST API example built with Fastify, Knex.js, SQLite, and Zod.
 
 ## Tech Stack
 
