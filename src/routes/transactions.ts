@@ -1,7 +1,7 @@
 import type { FastifyInstance } from "fastify";
-import { knex } from "../database.js";
+import { knex } from "../database";
 import { z } from "zod";
-import { checkSessionIdExists } from "../middlewares/check-session-id-exists.js";
+import { checkSessionIdExists } from "../middlewares/check-session-id-exists";
 
 export function transactionsRoutes(app: FastifyInstance) {
   app.addHook("preHandler", async (request) => {
@@ -15,7 +15,7 @@ export function transactionsRoutes(app: FastifyInstance) {
       type: z.enum(["credit", "debit"]),
     });
 
-    const { title, amount, type } = createTransactionBody.parse(req.body);
+    const { title, amount, type } = createTransactionBody.parse(request.body);
 
     let sessionId = request.cookies.sessionId;
 

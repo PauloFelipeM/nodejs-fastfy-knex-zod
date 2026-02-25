@@ -1,19 +1,5 @@
-import fastify from "fastify";
-import cookie from "@fastify/cookie";
-import { env } from "./env/index.js";
-import { transactionsRoutes } from "./routes/transactions.js";
-
-const app = fastify();
-
-app.register(cookie);
-
-app.addHook("preHandler", async (request) => {
-  console.log(`globalHook [${request.method}] ${request.url}`);
-});
-
-app.register(transactionsRoutes, {
-  prefix: "/transactions",
-});
+import { app } from "./app";
+import { env } from "./env/index";
 
 app
   .listen({
