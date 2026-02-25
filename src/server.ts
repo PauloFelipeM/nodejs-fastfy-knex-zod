@@ -1,19 +1,18 @@
 import fastify from "fastify";
-import { knex } from "./database.js";
+import cookie from "@fastify/cookie";
 import { env } from "./env/index.js";
+import { transactionsRoutes } from "./routes/transactions.js";
 
 const app = fastify();
 
-app.get("/", async (request, reply) => {
-  const transaction = await knex("transactions").insert({
-    id: crypto.randomUUID(),
-    title: "New transaction",
-    amount: 500,
-  });
+app.register(cookie);
 
-  const transactions = await knex("transactions").select("*");
+app.addHook("preHandler", async (request) => {
+  console.log(`globalHook [${request.method}] ${request.url}`);
+});
 
-  return { transactions };
+app.register(transactionsRoutes, {
+  prefix: "/transactions",
 });
 
 app
